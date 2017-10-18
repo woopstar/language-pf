@@ -1,0 +1,10 @@
+{
+  "name": "language-pf",
+  "version": "0.0.1",
+  "description": "PF Packet Filtering in Atom",
+  "engines": {
+    "atom": "*"
+  },
+  "license": "MIT",
+  "repository": "https://github.com/woopstar/language-pf"
+}
