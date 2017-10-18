@@ -1,103 +1,88 @@
-'fileTypes': [
-  'pf\.conf'
+fileTypes: [
+  "pf\.conf"
 ]
-'foldingStartMarker': '^.*{$'
-'foldingStopMarker': '^.*}$'
-'isDisabled': false
-'name': 'PF Packet Filtering'
-'patterns': [
+name: "PF Packet Filtering"
+patterns: [
   {
-    'include': '#curly_braces'
+    comment: "variables"
+    match: "\\$[A-Za-z0-9_\\-]+"
+    name: "variable.pfconf"
   }
   {
-    'include': '#ip_address'
+    comment: "comments"
+    match: "^\\#.*$"
+    name: "comment.line.pfconf"
   }
   {
-    'include': '#subnet_mask'
+    comment: "tables"
+    match: "<[a-zA-Z0-9_\\-\\.]+>"
+    name: "markup.bold.pfconf"
   }
   {
-    'include': '#wildcard_mask'
+    comment: "operators"
+    match: "[\\!:<>,]"
+    name: "constant.pfconf"
   }
   {
-    'include': '#interfaces'
+    comment: "lists"
+    match: "[{}\\(\\)]"
+    name: "storage.modifier.pfconf"
   }
   {
-    'include': '#numbers'
+    comment: "numeric netmasks"
+    match: "\\/[0-9]+"
+    name: "markup.italic.pfconf"
   }
   {
-    'include': '#keys'
+    captures:
+      "1":
+        name: "string.pfconf"
+    comment: "strings"
+    match: "[\\\"](.+)[\\\"]"
+    name: "string.pfconf"
+  }
+  {
+    captures:
+      "1":
+        name: "entity.name.pfconf"
+    comment: "variables defs"
+    match: "^(\\S+)\\s*="
+    name: ""
+  }
+  {
+    comment: "keywords qualifier"
+    match: "(quick|persist)"
+    name: "markup.heading.pfconf"
+  }
+  {
+    comment: "keywords tag"
+    match: "(tagged|tag)"
+    name: "markup.quote.pfconf"
+  }
+  {
+    comment: "keywords atom"
+    match: "(all|any|yes|no|drop|return)"
+    name: "invalid.illegal.pfconf"
+  }
+  {
+    comment: "keywords builtin"
+    match: "(proto|inet6|inet|tcp|udp|icmp6|icmp|port|other|carp|pfsync|first|opening|closing|single|finwait|established|closed|multiple|error|states|frags|interval|frag)"
+    name: "markup.list.pfconf"
+  }
+  {
+    comment: "keywords def"
+    match: "(label|user|file|timeout|limit|optimization|block-policy|loginterface|require-order|skip|synproxy|state|parent|bandwidth|static-port)"
+    name: "entity.name.pfconf"
+  }
+  {
+    comment: "keywords main"
+    match: "(altq|anchor|antispoof|binat|pass|block|queue|match|scrub|table|set|in|out|rdr-to|divert-to|route-to|reply-to|nat-to|nat|rdr)"
+    name: "keyword.control.pfconf"
+  }
+  {
+    comment: "keywords attribute"
+    match: "(log)"
+    name: "storage.pfconf"
   }
 ]
-'repository':
-  'ip_address':
-    'patterns': [
-      {
-        'match': '\\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(/\\d+)?\\b'
-        'name': 'constant.numeric.pf'
-      }
-    ]
-  'subnet_mask':
-    'patterns': [
-      {
-        'match': '\\s255\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}'
-        'name': 'string.regexp.pf'
-        'comment': 'most common subnet masks'
-      }
-    ]
-  'wildcard_mask':
-    'patterns': [
-      {
-        'match': '\\s0\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}[\/\\d{1,2}]*'
-        'name': 'string.regexp.pf'
-        'comment': 'most common wildcard masks'
-      }
-    ]
-  'interfaces':
-    'patterns': [
-      {
-        'begin': '(interfaces)(?:\\s)({)'
-        'beginCaptures':
-          '1':
-            'name': 'constant.language.pf'
-          '2':
-            'name': 'keyword.operator.pf'
-        'end': '(^})'
-        'endCaptures':
-          '1':
-            'name': 'keyword.operator.pf'
-        'patterns': [
-          {
-            'match': '(\\b[a-z]{1,4})([-|\\d])(.*)\\b'
-            'name': 'keyword.other.interface'
-          }
-          {
-            'include' : '#curly_braces'
-          }
-        ]
-      }
-    ]
-  'numbers':
-    'patterns': [
-      {
-        'match': '\\b\\d+(?=[\\s*|;])'
-        'name': 'constant.numeric.pf'
-        'comment': 'generic numbers'
-      }
-    ]
-  'keys':
-    'patterns': [
-      {
-        'match': '^(?:\\s*)\\b\\w*(?=\\s+{)'
-        'name': 'constant.language.pf'
-        'comment': 'key command'
-      }
-    ]
-  'curly_braces':
-    'patterns': [
-      {
-        'match': '[{|}]'
-        'name': 'keyword.operator.pf'
-        'comment': 'curly braces'
-      }
-    ]
-'scopeName': 'source.pf-config'
+scopeName: "source.pfconf"
