@@ -1,6 +1,6 @@
 {
   "name": "language-pf",
-  "version": "0.2.2",
+  "version": "1.0.0",
   "description": "PF Packet Filtering in Atom",
   "engines": {
     "atom": "*"
