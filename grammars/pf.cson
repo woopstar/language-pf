@@ -32,7 +32,7 @@ patterns: [
   }
   {
     comment: "comments"
-    match: "^\\#.*$"
+    match: "\\#.*$"
     name: "comment.line.pfconf"
   }
   {
@@ -56,6 +56,14 @@ patterns: [
         name: "string.pfconf"
     comment: "strings"
     match: "[\\\"](.+)[\\\"]"
+    name: "string.pfconf"
+  }
+  {
+    captures:
+      "1":
+        name: "string.pfconf"
+    comment: "strings"
+    match: "[\\\'](.+)[\\\']"
     name: "string.pfconf"
   }
   {
@@ -93,7 +101,7 @@ patterns: [
   }
   {
     comment: "keywords main"
-    match: "\\b(altq|anchor|antispoof|binat|pass|block|queue|match|scrub|table|set|in|out|rdr-to|divert-to|route-to|reply-to|nat-to|nat|rdr)\\b"
+    match: "\\b(altq|anchor|antispoof|binat|pass|block|queue|match|scrub|table|set|in|on|out|rdr-to|divert-to|route-to|reply-to|nat-to|nat|rdr)\\b"
     name: "keyword.control.pfconf"
   }
   {
