@@ -1,5 +1,5 @@
 fileTypes: [
-  "pf\.conf"
+  "pf\.conf","pf"
 ]
 name: "PF Packet Filtering"
 scopeName: "source.pfconf"
