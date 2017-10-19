@@ -2,7 +2,26 @@ fileTypes: [
   "pf\.conf"
 ]
 name: "PF Packet Filtering"
+scopeName: "source.pfconf"
 patterns: [
+  {
+    'include': '#comment-block'
+  }
+  {
+    'include': '#comment-line'
+  }
+  {
+    'include': '#command-keyword'
+  }
+  {
+    'include': '#description'
+  }
+  {
+    'include': '#double-quoted'
+  }
+  {
+    'include': '#single-quoted'
+  }
   {
     comment: "ipv4-address"
     match: '\\b((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))([/]\\d{1,2})?\\b'
@@ -39,27 +58,6 @@ patterns: [
     name: "variable.pfconf"
   }
   {
-    comment: "Comments"
-    match: "#.*$"
-    name: "comment.line.pfconf"
-  }
-  {
-    captures:
-      "1":
-        name: "string.double.pfconf"
-    comment: "strings"
-    match: "[\\\"](.+)[\\\"]"
-    name: "string.double.pfconf"
-  }
-  {
-    captures:
-      "1":
-        name: "string.single.pfconf"
-    comment: "strings"
-    match: "[\\\'](.+)[\\\']"
-    name: "string.single.pfconf"
-  }
-  {
     comment: "keywords tag"
     match: "\\b(tagged|tag)\\b"
     name: "string.pfconf"
@@ -81,7 +79,7 @@ patterns: [
   }
   {
     comment: "keywords main"
-    match: "\\b(altq|anchor|antispoof|binat|pass|quick|block|queue|match|scrub|table|set|in|on|out|rdr-to|divert-to|route-to|reply-to|nat-to|nat|rdr)\\b"
+    match: "\\b(altq|anchor|antispoof|binat|pass|rtable|quick|block|queue|match|scrub|table|set|in|on|out|rdr-to|divert-to|route-to|reply-to|nat-to|nat|rdr)\\b"
     name: "keyword.control.pfconf"
   }
   {
@@ -95,4 +93,83 @@ patterns: [
     name: "string.pfconf"
   }
 ]
-scopeName: "source.pfconf"
+
+'repository':
+  'double-quoted':
+    'patterns': [
+      {
+        'begin': '"'
+        'beginCaptures':
+          '0':
+            'name': 'string.junos'
+        'end': '"'
+        'endCaptures':
+          '0':
+            'name': 'string.junos'
+        'patterns': [
+          {
+            'name': 'string.junos'
+            'match': '[-\\w_,\\$\\\\*\\#;\'<>:\\./\\[\\]\\@\\%\\^\\(\\)\\+\\`\\~\\=\\&\\{\\}\\?\\|\\!]+'
+          }
+        ]
+        'comment': 'Double quoted string'
+      }
+    ]
+  'single-quoted':
+    'patterns': [
+      {
+        'begin': '\''
+        'beginCaptures':
+          '0':
+            'name': 'string.junos'
+        'end': '\''
+        'endCaptures':
+          '0':
+            'name': 'string.junos'
+        'patterns': [
+          {
+            'name': 'string.junos'
+            'match': '[-\\w_,\\$\\\\*\\#;"<>:\\./\\[\\]\\@\\%\\^\\(\\)\\+\\`\\~\\=\\&\\{\\}\\?\\|\\!]+'
+          }
+        ]
+        'comment': 'Single quoted string'
+      }
+    ]
+  'description':
+    'patterns': [
+      {
+        'match': '(?:\\sdescription )([-\\w_,\\$\\\\*\\#;<>:\\./\\[\\]\\@\\%\\^\\(\\)\\+\\`\\~\\=\\&\\{\\}\\?\\|\\!]+)'
+        'captures':
+          '1':
+            'name': 'markup.inserted.junos'
+        'comment': 'Description'
+      }
+    ]
+  'comment-block':
+    'patterns': [
+      {
+        'begin': '/\\*'
+        'end': '(\\*/|\n)'
+        'captures':
+          '0':
+            'name': 'comment.block.junos'
+        'name': 'comment.block.junos'
+        'comment': 'comments or annotations'
+      }
+    ]
+  'comment-line':
+    'patterns': [
+      {
+        'match': '(^|^\\s|\\s)(#).*$\n?'
+        'name': 'comment.line.junos'
+        'comment': 'line comment #'
+      }
+    ]
+  'command-keyword':
+    'patterns': [
+      {
+        'match': '(?<=^|\\s)(set|request|delete|edit|show|protect:?|inactive:|unprotect|deactivate|activate)(?= )'
+        'name': 'keyword.control.junos'
+        'comment': 'commands keywords'
+      }
+    ]
