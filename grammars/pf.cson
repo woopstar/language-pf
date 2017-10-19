@@ -21,24 +21,19 @@ patterns: [
 
   {
     comment: "tables"
-    match: '\\b((((ge|et|so|fe|gr|xe|lt|vt|si|sp)(-\\d+\/\\d+\/\\d+))|(st|lo|me|vme|ae|reth|fxp|em)\\d{1,3}|irb|vlan|vme)(\\.\\d{1,5})?)\\b(?![-_<>])'
+    match: '<\s*[a-zA-Z0-9_:][a-zA-Z0-9_:.-]*\s*>'
     name: "variable.pfconf"
   }
 
   {
     comment: "variables"
-    match: "<\s*[a-zA-Z0-9_:][a-zA-Z0-9_:.-]*\s*>"
+    match: "\\$[A-Za-z0-9_\\-]+"
     name: "variable.pfconf"
   }
   {
     comment: "comments"
     match: "^\\#.*$"
     name: "comment.line.pfconf"
-  }
-  {
-    comment: "tables"
-    match: "<[a-zA-Z0-9_\\-\\.]+>"
-    name: "markup.bold.pfconf"
   }
   {
     comment: "operators"
@@ -73,37 +68,37 @@ patterns: [
   }
   {
     comment: "keywords qualifier"
-    match: "(quick|persist)"
+    match: "\\b(quick|persist)\\b"
     name: "markup.heading.pfconf"
   }
   {
     comment: "keywords tag"
-    match: "(tagged|tag)"
+    match: "\\b(tagged|tag)\\b"
     name: "markup.quote.pfconf"
   }
   {
     comment: "keywords atom"
-    match: "(all|any|yes|no|drop|return)"
+    match: "\\b(all|any|yes|no|drop|return)\\b"
     name: "invalid.illegal.pfconf"
   }
   {
     comment: "keywords builtin"
-    match: "(proto|inet6|inet|tcp|udp|icmp6|icmp|port|other|carp|pfsync|first|opening|closing|single|finwait|established|closed|multiple|error|states|frags|interval|frag)"
+    match: "\\b(proto|inet6|inet|tcp|udp|icmp6|icmp|port|other|carp|pfsync|first|opening|closing|single|finwait|established|closed|multiple|error|states|frags|interval|frag)\\b"
     name: "markup.list.pfconf"
   }
   {
     comment: "keywords def"
-    match: "(label|user|file|timeout|limit|optimization|block-policy|loginterface|require-order|skip|synproxy|state|parent|bandwidth|static-port)"
+    match: "\\b(label|user|file|timeout|limit|optimization|block-policy|loginterface|require-order|skip|synproxy|state|parent|bandwidth|static-port)\\b"
     name: "entity.name.pfconf"
   }
   {
     comment: "keywords main"
-    match: "(altq|anchor|antispoof|binat|pass|block|queue|match|scrub|table|set|in|out|rdr-to|divert-to|route-to|reply-to|nat-to|nat|rdr)"
+    match: "\\b(altq|anchor|antispoof|binat|pass|block|queue|match|scrub|table|set|in|out|rdr-to|divert-to|route-to|reply-to|nat-to|nat|rdr)\\b"
     name: "keyword.control.pfconf"
   }
   {
     comment: "keywords attribute"
-    match: "(log)"
+    match: "\\b(log)\\b"
     name: "storage.pfconf"
   }
 ]
