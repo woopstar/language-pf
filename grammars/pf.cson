@@ -14,79 +14,59 @@ patterns: [
     name: "constant.numeric.pfconf"
   }
   {
-    comment: "interfaces"
-    match: '\\b((((ge|et|so|fe|gr|xe|lt|vt|si|sp)(-\\d+\/\\d+\/\\d+))|(st|lo|me|vme|ae|reth|fxp|em)\\d{1,3}|irb|vlan|vme)(\\.\\d{1,5})?)\\b(?![-_<>])'
-    name: "string.pfconf"
+    comment: "mac-address"
+    match: '(?:(\\b))([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})([/]\\d{1,2})?\\b'
+    name: "constant.numeric.pfconf"
   }
-
   {
-    comment: "tables"
-    match: '<\s*[a-zA-Z0-9_:][a-zA-Z0-9_:.-]*\s*>'
+    comment: "Netmasks"
+    match: '\/\\d\{1,3}'
+    name: "constant.numeric.pfconf"
+  }
+  {
+    comment: "Tables"
+    match: '<\\s*[a-zA-Z0-9_:][a-zA-Z0-9_:.-]*\\s*>'
     name: "variable.pfconf"
   }
-
   {
-    comment: "variables"
-    match: "\\$[A-Za-z0-9_\\-]+"
+    comment: "Curly Braces"
+    match: '[{|}]'
+    name: "keyword.operator.pfconf"
+  }
+  {
+    comment: "Variables"
+    match: "\\$[a-zA-Z][a-zA-Z0-9_]+"
     name: "variable.pfconf"
   }
   {
-    comment: "comments"
-    match: "\\#.*$"
+    comment: "Comments"
+    match: "#.*$"
     name: "comment.line.pfconf"
   }
   {
-    comment: "operators"
-    match: "[\\!:<>,]"
-    name: "constant.pfconf"
-  }
-  {
-    comment: "lists"
-    match: "[{}\\(\\)]"
-    name: "storage.modifier.pfconf"
-  }
-  {
-    comment: "numeric netmasks"
-    match: "\\/[0-9]+"
-    name: "markup.italic.pfconf"
-  }
-  {
     captures:
       "1":
-        name: "string.pfconf"
+        name: "string.double.pfconf"
     comment: "strings"
     match: "[\\\"](.+)[\\\"]"
-    name: "string.pfconf"
+    name: "string.double.pfconf"
   }
   {
     captures:
       "1":
-        name: "string.pfconf"
+        name: "string.single.pfconf"
     comment: "strings"
     match: "[\\\'](.+)[\\\']"
-    name: "string.pfconf"
-  }
-  {
-    captures:
-      "1":
-        name: "entity.name.pfconf"
-    comment: "variables defs"
-    match: "^(\\S+)\\s*="
-    name: ""
-  }
-  {
-    comment: "keywords qualifier"
-    match: "\\b(quick|persist)\\b"
-    name: "markup.heading.pfconf"
+    name: "string.single.pfconf"
   }
   {
     comment: "keywords tag"
     match: "\\b(tagged|tag)\\b"
-    name: "markup.quote.pfconf"
+    name: "string.pfconf"
   }
   {
     comment: "keywords atom"
-    match: "\\b(all|any|yes|no|drop|return)\\b"
+    match: "\\b(all|any|yes|no|drop|return|reject)\\b"
     name: "invalid.illegal.pfconf"
   }
   {
@@ -101,13 +81,18 @@ patterns: [
   }
   {
     comment: "keywords main"
-    match: "\\b(altq|anchor|antispoof|binat|pass|block|queue|match|scrub|table|set|in|on|out|rdr-to|divert-to|route-to|reply-to|nat-to|nat|rdr)\\b"
+    match: "\\b(altq|anchor|antispoof|binat|pass|quick|block|queue|match|scrub|table|set|in|on|out|rdr-to|divert-to|route-to|reply-to|nat-to|nat|rdr)\\b"
     name: "keyword.control.pfconf"
   }
   {
     comment: "keywords attribute"
     match: "\\b(log)\\b"
     name: "storage.pfconf"
+  }
+  {
+    comment: "Interfaces"
+    match: '\\b((((ge|et|so|fe|gr|xe|lt|vt|si|sp)(-\\d+\/\\d+\/\\d+))|(st|lo|me|vme|ae|reth|fxp|em|ens|eth)\\d{1,3}|irb|vlan|vme)(\\.\\d{1,5})?)\\b(?![-_<>])'
+    name: "string.pfconf"
   }
 ]
 scopeName: "source.pfconf"
